@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import React, { Component } from 'react';
+import ResultComponent from './components/ResultComponent';
+import ButtonComponent from './components/ButtonComponent';
+import calculation from "./calculation-logic/calculation";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      result: '',
+      reset: false
+    }
+  }
+
+  onClick = (button) => {
+    this.setState(calculation(this.state, button));
+  }
+
+  render() {
+    return (
+      <>
+        <div className='container-sm calculator'>
+          <div className="calculator-body">
+            <ResultComponent result={this.state.result} />
+            <ButtonComponent onClick={this.onClick} />
+          </div>
+        </div>
+      </>
+    );
+  }
 }
 
 export default App;
